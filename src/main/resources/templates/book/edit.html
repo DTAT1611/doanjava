@@ -10,7 +10,7 @@
 <div class="container">
     <h1>edit Book</h1>
     <form th:action="@{/books/edit}" th:object="${book}" method="post">
-
+        <input type="hidden" th:field="*{id}">
         <div class="col-6 mb-3">
             <label class="form-label" for="title">Title:</label>
             <input class="form-control" type="text" th:field="*{title}" id="title">
@@ -33,9 +33,9 @@
                 <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}" th:selected="${category.id == book.category.id}"></option>
             </select>
 
-            <span class="text-danger" th:if="${#fields.hasErrors('category.id')}" th:errors="*{category}"></span>
+
         </div>
-        <input type="submit" class="btn btn-primary" value="Save">
+        <input type="submit"  value="Save">
     </form>
     <br>
     <a th:href="@{/books}">Back to List</a>

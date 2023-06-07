@@ -1,6 +1,6 @@
-package com.exampleM.Minh.Validator.annotation;
+package com.exampleM.Minh.validator.annotation;
 
-import com.exampleM.Minh.Validator.ValidCategoryIdValidator;
+import com.exampleM.Minh.validator.ValidUserIdValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -14,10 +14,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({TYPE,FIELD})
 @Retention(RUNTIME)
-@Constraint(validatedBy = ValidCategoryIdValidator.class)
+@Constraint(validatedBy = ValidUserIdValidator.class)
 @Documented
-public @interface ValidCategoryId {
-    String message() default "Invalid Category ID";
-    Class<?>[] group() default {};
-    Class<? extends Payload>[] payload() default{};
+public @interface ValidUserId {
+    String message() default "Invalid User ID";
+    Class<?>[] groups() default {};
+    Class<? extends Payload>[] payload() default {};
 }

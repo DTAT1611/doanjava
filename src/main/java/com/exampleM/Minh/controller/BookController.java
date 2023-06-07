@@ -3,6 +3,7 @@ package com.exampleM.Minh.controller;
 import com.exampleM.Minh.entity.Book;
 import com.exampleM.Minh.services.BookService;
 import com.exampleM.Minh.services.CategoryService;
+import com.exampleM.Minh.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,8 @@ public class BookController {
     private BookService bookService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private UserService userService;
     @GetMapping
     public String showAllBooks(Model model){
         List<Book> books = bookService.getAllBooks();
@@ -30,11 +33,16 @@ public class BookController {
     public String addBookForm(Model model){
         model.addAttribute("book", new Book());
         model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("users", userService.getClass());
         return "book/add";
     }
 
     @PostMapping("/add")
-    public String addBook(@ModelAttribute("book") Book book){
+    public String addBook(@Valid @  ModelAttribute("book") Book book,BindingResult bindingResult,Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("categories",categoryService.getAllCategories());
+            return "book/add";
+        }
         bookService.addBook(book);
         return "redirect:/books";
     }
@@ -50,13 +58,10 @@ public class BookController {
             return "not-found";
         }
     }
-    @PostMapping("/edit/{id}")
-    public  String editBook( @ModelAttribute("book")Book updateBook,Model model){
+    @PostMapping("/edit")
+    public  String editBook( @ModelAttribute("book")Book uBook,Model model){
 
-        bookService.getAllBooks().stream()
-                .filter(book -> book.getId() == updateBook.getId())
-                .findFirst()
-                .ifPresent(book -> bookService.getAllBooks().set(bookService.getAllBooks().indexOf(book), updateBook));
+        bookService.updateBook(uBook);
         return "redirect:/books";
 
     }

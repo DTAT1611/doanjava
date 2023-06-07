@@ -1,5 +1,6 @@
 package com.exampleM.Minh.services;
 
+import com.exampleM.Minh.entity.Book;
 import com.exampleM.Minh.entity.Category;
 import com.exampleM.Minh.repository.ICategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,16 @@ public class CategoryService {
             throw new RuntimeException("Category not found");
         }
     }
+    public void addCategory(Category category){
+        categoryRepository.save(category);
+    }
+    public void updateCategory(Category category){
+        categoryRepository.save(category);
+    }
     public  Category saveCategory(Category category){
         return categoryRepository.save(category);
     }
 
     public void deleteCategory(Long id){categoryRepository.deleteById(id);}
+
 }

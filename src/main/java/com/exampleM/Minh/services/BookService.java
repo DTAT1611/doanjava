@@ -17,18 +17,18 @@ public class BookService {
     public List<Book> getAllBooks(){
         return bookRepository.findAll();
     }
-    public Book getBookById(Long id){
-        Optional<Book> optional = bookRepository.findById(id);
-        return optional.orElse(null);
-    }
-    public void addBook(Book book){
-        bookRepository.save(book);
-    }
-    public void updateBook(Book book){
-        bookRepository.save(book);
-    }
-    public void deleteBook(Long id){
-        bookRepository.deleteById(id);
-    }
+        public Book getBookById(Long id){
+            Optional<Book> optional = bookRepository.findById(id);
+            return optional.orElse(null);
+        }
+        public void addBook(Book book){
+            bookRepository.save(book);
+        }
+        public void updateBook(Book book){
+            bookRepository.save(book);
+        }
+        public void deleteBook(Long id){
+            bookRepository.deleteById(id);
+        }
 }
 
