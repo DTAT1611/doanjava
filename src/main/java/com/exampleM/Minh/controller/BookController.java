@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/books")
+@RequestMapping("/admin/books")
 
 public class BookController {
     @Autowired
@@ -27,24 +27,24 @@ public class BookController {
     public String showAllBooks(Model model){
         List<Book> books = bookService.getAllBooks();
         model.addAttribute("books",books);
-        return "book/list";
+        return "admin/book/list";
     }
     @GetMapping("/add")
     public String addBookForm(Model model){
         model.addAttribute("book", new Book());
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("users", userService.getClass());
-        return "book/add";
+        return "admin/book/add";
     }
 
     @PostMapping("/add")
     public String addBook(@Valid @  ModelAttribute("book") Book book,BindingResult bindingResult,Model model){
         if(bindingResult.hasErrors()){
             model.addAttribute("categories",categoryService.getAllCategories());
-            return "book/add";
+            return "admin/book/add";
         }
         bookService.addBook(book);
-        return "redirect:/books";
+        return "redirect:/admin/books";
     }
 
     @GetMapping("/edit/{id}")
@@ -53,7 +53,7 @@ public class BookController {
         if (editBook!=null){
             model.addAttribute("book", editBook);
             model.addAttribute("categories", categoryService.getAllCategories());
-            return "book/edit";
+            return "admin/book/edit";
         } else {
             return "not-found";
         }
@@ -62,7 +62,7 @@ public class BookController {
     public  String editBook( @ModelAttribute("book")Book uBook,Model model){
 
         bookService.updateBook(uBook);
-        return "redirect:/books";
+        return "redirect:/admin/books";
 
     }
 
@@ -71,7 +71,7 @@ public class BookController {
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") Long id){
         bookService.deleteBook(id);
-        return "redirect:/books";
+        return "redirect:/admin/books";
     }
 
 
