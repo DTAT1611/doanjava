@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/categories")
+@RequestMapping("/admin/categories")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
@@ -19,19 +19,19 @@ public class CategoryController {
     public String showAllBooks(Model model){
         List<Category> categories = categoryService.getAllCategories();
         model.addAttribute("categories",categories);
-        return "category/list";
+        return "admin/category/list";
     }
     @GetMapping("/add")
     public String addCategoryForm(Model model){
         model.addAttribute("category", new Category());
 
-        return "category/add";
+        return "admin/category/add";
     }
 
     @PostMapping("/add")
     public String addCategory(@ModelAttribute("book") Category category){
         categoryService.addCategory(category);
-        return "redirect:/categories";
+        return "redirect:/admin/categories";
     }
     @GetMapping("/edit/{id}")
     public String editCategoryForm(@PathVariable("id") Long id, Model model){
@@ -39,7 +39,7 @@ public class CategoryController {
         if (editCategory!=null){
             model.addAttribute("category", editCategory);
 
-            return "category/edit";
+            return "admincategory/edit";
         } else {
             return "not-found";
         }
@@ -48,12 +48,12 @@ public class CategoryController {
     public  String editCategory( @ModelAttribute("book")Category uCategory,Model model){
 
         categoryService.updateCategory(uCategory);
-        return "redirect:/categories";
+        return "redirect:/admin/categories";
 
     }
     @GetMapping("/delete/{id}")
     public String deleteCategory(@PathVariable("id") Long id){
         categoryService.deleteCategory(id);
-        return "redirect:/categories";
+        return "redirect:/admin/categories";
     }
 }
