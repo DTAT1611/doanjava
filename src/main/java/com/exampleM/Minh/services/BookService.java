@@ -17,10 +17,12 @@ public class BookService {
     public List<Book> getAllBooks(){
         return bookRepository.findAll();
     }
+    
         public Book getBookById(Long id){
             Optional<Book> optional = bookRepository.findById(id);
             return optional.orElse(null);
         }
+        
         public void addBook(Book book){
             bookRepository.save(book);
         }
@@ -30,5 +32,8 @@ public class BookService {
         public void deleteBook(Long id){
             bookRepository.deleteById(id);
         }
+	public List<Book> getAllBookByCategoryId(long id) {
+        return bookRepository.findAllByCategory_Id(id);
+    }
 }
 
