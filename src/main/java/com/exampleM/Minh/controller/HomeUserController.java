@@ -40,7 +40,7 @@ public class HomeUserController {
      @GetMapping("/shop/viewproduct/{id}")
     public String viewProduct(@PathVariable long id, Model model){
         model.addAttribute("cartCount", GlobalData.cart.size());
-        model.addAttribute("books", bookService.getBookById(id).get);
+        model.addAttribute("books", bookService.getBookById(id).get());
         return "viewProduct";
     } //view product Details
 }
