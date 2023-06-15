@@ -47,7 +47,6 @@ public class HomeUserController {
         if(bookService.getBookById(id)==null){
             throw new NoSuchElementException("No value present");
         }
-
         return "viewProduct";
     }
 // view product Details
