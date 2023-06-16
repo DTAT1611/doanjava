@@ -37,7 +37,7 @@ public class HomeUserController {
         model.addAttribute("books", bookService.getAllBookByCategoryId(id));
         return "shop";
     } //view Products By Category
-     @GetMapping("/shop/viewproduct/{id}")
+     @GetMapping("/shop/viewbook/{id}")
     public String viewProduct(@PathVariable long id, Model model){
         model.addAttribute("cartCount", GlobalData.cart.size());
         model.addAttribute("books", bookService.getBookById(id).get());
