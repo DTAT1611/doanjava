@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.exampleM.Minh.global.GlobalData;
 import com.exampleM.Minh.services.BookService;
 import com.exampleM.Minh.services.CategoryService;
+
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Controller
@@ -31,18 +33,23 @@ public class HomeUserController {
         return "shop";
     }
         @GetMapping("/shop/category/{id}")
-    public String shopByCat(@PathVariable int id, Model model){
+    public String shopByCat(@PathVariable long id, Model model){
         model.addAttribute("cartCount", GlobalData.cart.size());
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("books", bookService.getAllBookByCategoryId(id));
         return "shop";
-    } //view Products By Category
-     @GetMapping("/shop/viewbook/{id}")
+
+    }
+     @GetMapping("/shop/viewproduct/{id}")
     public String viewProduct(@PathVariable long id, Model model){
         model.addAttribute("cartCount", GlobalData.cart.size());
-        model.addAttribute("books", bookService.getBookById(id).get());
+        model.addAttribute("books", bookService.getBookById(id));
+        if(bookService.getBookById(id)==null){
+            throw new NoSuchElementException("No value present");
+        }
         return "viewProduct";
-    } //view product Details
+    }
+// view product Details
 }
 
 

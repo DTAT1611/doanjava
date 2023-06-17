@@ -31,7 +31,7 @@ public class BookService {
         public void deleteBook(Long id){
             bookRepository.deleteById(id);
         }
-	public List<Book> getAllBookByCategoryId(int id) {
+	public List<Book> getAllBookByCategoryId(long id) {
         return bookRepository.findAllByCategory_Id(id);
     }
 }
