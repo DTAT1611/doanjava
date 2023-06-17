@@ -1,5 +1,6 @@
 package com.exampleM.Minh.controller;
 
+import com.exampleM.Minh.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,8 +43,10 @@ public class HomeUserController {
     // view Products By Category
      @GetMapping("/shop/viewproduct/{id}")
     public String viewProduct(@PathVariable long id, Model model){
+        Book detail = bookService.getBookById(id);
         model.addAttribute("cartCount", GlobalData.cart.size());
-        model.addAttribute("books", bookService.getBookById(id));
+        model.addAttribute("books", detail);
+        model.addAttribute("categories", categoryService.getAllCategories());
         if(bookService.getBookById(id)==null){
             throw new NoSuchElementException("No value present");
         }
