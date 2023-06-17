@@ -27,14 +27,14 @@ public class BookController {
     public String showAllBooks(Model model){
         List<Book> books = bookService.getAllBooks();
         model.addAttribute("books",books);
-        return "admin/book/list";
+        return "admin/books/list";
     }
     @GetMapping("/add")
     public String addBookForm(Model model){
         model.addAttribute("book", new Book());
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("users", userService.getClass());
-        return "admin/book/add";
+        return "admin/books/add";
     }
 
     @PostMapping("/add")
