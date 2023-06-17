@@ -30,6 +30,7 @@ public class Book {
     @NotNull(message = "GGGGG")
     private Double price;
 
+
     @ManyToOne
     @JoinColumn(name="category_id",referencedColumnName = "id")
     @ValidCategoryId
