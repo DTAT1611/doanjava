@@ -39,10 +39,10 @@ public class SecurityConfig {
                         .permitAll()
                         //Cần đăng nhập ?, cái chỗ này thực sự cần được nhìn đẹp hơn nếu như JAVA đéo suck ass tới vầy
                         .requestMatchers( "admin/**").hasAnyAuthority("ADMIN")
-                        .requestMatchers("/api/**").hasAnyAuthority("ADMIN", "USER")
+                        
                         //Không cần đăng nhập
-                        .requestMatchers("/", "/home").anonymous()
-                        .requestMatchers("/shop/**").anonymous()
+                        .requestMatchers("/", "/home").permitAll()
+                        .requestMatchers("/shop/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout.logoutUrl("/logout")

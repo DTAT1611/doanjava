@@ -24,18 +24,18 @@ public class BookController {
     private CategoryService categoryService;
     @Autowired
     private UserService userService;
-    @GetMapping
+    @GetMapping("/list")
     public String showAllBooks(Model model){
         List<Book> books = bookService.getAllBooks();
         model.addAttribute("books",books);
-        return "admin/books/list";
+        return "admin/book/list";
     }
     @GetMapping("/add")
     public String addBookForm(Model model){
         model.addAttribute("book", new Book());
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("users", userService.getClass());
-        return "admin/books/add";
+        return "admin/book/add";
     }
 
     @PostMapping("/add")
@@ -45,12 +45,12 @@ public class BookController {
             return "admin/book/add";
         }
         bookService.addBook(book);
-        return "redirect:/admin/books";
+        return "redirect:/admin";
     }
 
     @GetMapping("/edit/{id}")
     public String editBookForm(@PathVariable("id") Long id, Model model){
-        Optional<Book> editBook = bookService.getBookById(id);
+        Book editBook = bookService.getBookById(id);
         if (editBook!=null){
             model.addAttribute("book", editBook);
             model.addAttribute("categories", categoryService.getAllCategories());
@@ -64,17 +64,10 @@ public class BookController {
 
         bookService.updateBook(uBook);
         return "redirect:/admin/books";
-
     }
-
-
-
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") Long id){
         bookService.deleteBook(id);
         return "redirect:/admin/books";
     }
-
-
-
 }
